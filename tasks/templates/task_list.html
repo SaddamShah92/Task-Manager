@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    <h1>Task Manager</h1>
+
+    <!-- Button to Add New Task -->
+    <a href="{% url 'add_task' %}"><button>Add New Task</button></a>
+
+    <!-- Incomplete Tasks -->
+    <h2>Pending Tasks</h2>
+    {% if tasks %}
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    <strong>{{ task.title }} </strong><br>
+                     {{ task.description }} 
+                    (Due: {{ task.due_date }})
+                    <a href="{% url 'complete_task' task.id %}">
+                        <br>
+                        <br>
+                        <button>Mark as Completed</button>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending tasks.</p>
+    {% endif %}
+
+    <!-- Completed Tasks Section -->
+    <h2>Completed Tasks</h2>
+    {% if completed_tasks %}
+        <ul>
+            {% for task in completed_tasks %}
+                <li>
+                    <del><strong>{{ task.title }}</strong> - {{ task.description }} (Completed)</del>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No completed tasks yet.</p>
+    {% endif %}
+</body>
+</html>
